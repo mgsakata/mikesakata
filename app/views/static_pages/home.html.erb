@@ -9,16 +9,65 @@
 <div class="container-fluid">
   <h1>Mike Sakata</h1>
 
+
+
+
   <div class="center hero-unit post">
-    <div class="pull-right">Oct 6, 2013</div>
-    <h4>First test post</h4>
-    <p>This is where the smart stuff goes!</p>
-    <code>Test Code Line</code>
-    <br>
-    <pre>
-      Test code in a pre section
-      with multiple lines
-    </pre>
+    <div class="pull-right">Oct 5, 2013</div>
+    <h4>rails new</h4>
+    <p>Starting a new rails app involves the following:</p>
+    <p><code>rails new &lt;application name&gt;</code></p>
+    <p>This creates a skeleton application in the directory matching the application name. At the end of the installation <code>bundle install</code> is run automatically. This installs ruby gems for the application to use. Those gems are specified in the <code>gemfile</code> which is located in the root of the new applications directory.</p>
+  </div>
+
+  <div class="center hero-unit post">
+    <div class="pull-right">Sept 30, 2013</div>
+    <h4>RubyTest for Sublime Text 2</h4>
+    <p>The configuration for Sublime Text 2 recommended by the Rails Tutorial:</p>
+    <p><a href="https://github.com/mhartl/rails_tutorial_sublime_text">https://github.com/mhartl/rails_tutorial_sublime_text</a></p>
+    <p>Included in the list of items to install is RubyTest, which will be used to execute rspec tests among others. When I first installed the RubyTest and attempted to run a test I received the following message:</p>
+<pre>
+[Finished in 0.0s with exit code 1]'rspec' is not recognized as an internal or external command,
+operable program or batch file.
+</pre>
+    <p>Not sure of the exact cause and whether it is due to windows or the particular gemfile settings? To remedy the situation needed to update the RubyTest package settings. &nbsp;Preferences -&gt; Package Settings -&gt; RubyTest.</p>
+    <p>First go into the Default settings, select and copy everything. Paste into the User settings</p>
+    <p>Change</p>
+    <p>
+<pre>
+"run_rspec_command": "rspec {relative_path}",
+"run_single_rspec_command": "rspec {relative_path} -l{line_number}",
+</pre>
+    </p>
+    <p>To</p>
+    <p>
+<pre>
+"run_rspec_command": "bundle exec rspec {relative_path}",
+"run_single_rspec_command": "bundle exec rspec {relative_path} -l{line_number}",
+</pre>
+    </p>
+    <p>RubyTest should now run the RSpec tests properly. At least it did so in my case on a Windows 7 machine.</p>
+    <p>.</p>
+  </div>
+
+  <div class="center hero-unit post">
+    <div class="pull-right">Sept 25, 2013</div>
+    <h4>A server is already running</h4>
+    <p>Learned something new already and haven't even started the tutorial yet. Wanted to check on a site I created going through the old tutorial and received the following error message when I ran the <code>rails s</code> command in windows in the directory:</p>
+    <p><code>A server is already running. Check C:/sites/mikesakata/tmp/pids/server.pid</code></p>
+    <p>After a quick google for a solution the following link was found:</p>
+    <p><a href="http://stackoverflow.com/questions/15127412/ror-a-server-is-already-running-check-tmp-pids-server-pid-exiting" target="_blank">http://stackoverflow.com/questions/15127412/ror-a-server-is-already-running-check-tmp-pids-server-pid-exiting</a></p>
+    <p>It simply states to delete the file in question and then the server is able to start and run.  Easy solution. Works now.</p>
+    <p>Also, server.pid is just a file that stores the process id (PID) of the server. If the computer crashes with the server running it may not be updated properly and rails thinks the server is still running.</p>
+  </div>
+
+  <div class="center hero-unit post">
+    <div class="pull-right">Sept 25, 2013</div>
+    <h4>Ruby on Rails Tutorial Embarkation</h4>
+    <p>Reading and doing the exercises for a Ruby on Rails 4 tutorial.</p>
+    <p><a href="http://ruby.railstutorial.org/ruby-on-rails-tutorial-book" target="_blank">http://ruby.railstutorial.org/ruby-on-rails-tutorial-book</a></p>
+    <p>It is an excellent tutorial and I've actually completed it a couple times in the past for previous versions of Rails, but this time I'd like to document what I am learning to try and better absorb the details. If possible linking the concepts and information back to my workplace web development language ColdFusion and other existing knowledge to form stronger connections.</p>
+    <p>Additionally the entries I make here can then be extracted and posted on my own website whenever it is completed. A process which I would also like to document if possible.</p>
   </div>
 
 
