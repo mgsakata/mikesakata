@@ -10,6 +10,26 @@
   <h1>Mike Sakata</h1>
 
   <div class="center hero-unit post">
+    <div class="pull-right">Oct 26, 2013</div>
+    <h4>bundle update and install</h4>
+    <p><code>$bundle install</code> will install gems specified in the gemfile not yet installed. <code>$bundle update</code> will install gems specified in the gemfile not yet installed, and also update existing gems to their newest tiny version. ie. 1.2.1 to 1.2.5. Generally <code>$bundle install</code> is the only one necessary to run when updates are made to the gemfile. The reason being that by running <code>$bundle update</code> without specifying the specific gem to update it will update all gems which may lead to unexpected behaviour and/or breakage.
+    </p>
+  </div>
+
+  <div class="center hero-unit post">
+    <div class="pull-right">Oct 26, 2013</div>
+    <h4>uglifier gem</h4>
+    <p>It handles file compression for the asset pipeline. Specifically in the <code>\config\environments\production.rb</code> file there is the following bit of code which tells Rails to use it as the js minifier/compressor.<p>
+<pre><code class="ruby">config.assets.js_compressor = :uglifier
+</code></pre>
+    <p>It appears to not be included in the development.rb file by default since it would slow down development time and make debugging js more difficult.</p>
+    <p>
+      Further details can be found at the following link:<br>
+      <a href="https://github.com/lautis/uglifier" target="_blank">https://github.com/lautis/uglifier</a>
+    </p>
+  </div>
+
+  <div class="center hero-unit post">
     <div class="pull-right">Oct 11, 2013</div>
     <h4>Code Syntax Highlighting</h4>
     <p>Very quickly added some code syntax highlighting to the website using the highlight.js library which can be found at the following github repository:</p>
