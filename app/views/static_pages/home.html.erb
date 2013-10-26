@@ -11,6 +11,35 @@
 
   <div class="center hero-unit post">
     <div class="pull-right">Oct 26, 2013</div>
+    <h4>railties compatibilty issue deploying to heroku</h4>
+    <p>Right on queue had a problem deploying to heroku where there was a dependency issue.</p>
+<pre><code>Bundler could not find compatible version for gem "railties":
+In Gemfile:
+rails (= 4.0.0) ruby depends on
+railties (= 4.0.0) ruby
+
+coffee-rails (= 4.0.0) ruby depends on
+railties (4.0.1.rc1)
+
+Failed to install gems via Bundler</code></pre>
+    <p>
+      Followed the advice in the follow stackoverflow link:<br><a href="http://stackoverflow.com/questions/19437114/bundler-gem-compatibility-issues-when-deploying-to-heroku">http://stackoverflow.com/questions/19437114/bundler-gem-compatibility-issues-when-deploying-to-heroku</a><br>
+      This then lead to sass-rails causing the same conflict. Also moved it above <code>gem 'rails', '4.0.0'</code> in the gemfile and then <code>$bundle update</code> worked properly on my local machine and deploying to heroku.
+    </p>
+    <p>
+      Found some more information related to the ordering of the gems within the gemfile at the following stackoverflow link:<Br><a href="http://stackoverflow.com/questions/16724566/does-the-order-of-gems-in-your-gemfile-make-a-difference">http://stackoverflow.com/questions/16724566/does-the-order-of-gems-in-your-gemfile-make-a-difference</a><br>
+      It appears that by placing the code in the following order:
+    </p>
+<pre><code class="ruby">gem 'sass-rails', '~> 4.0.0'
+gem 'coffee-rails', '4.0.0'
+gem 'rails', '4.0.0'</code></pre>
+    <p>
+      Allows the <code>gem rails</code> dependecy on railties to take precedence and as such railties 4.0.0 is installed as opposed to 4.0.1.rc1 specified by coffee-rails and sass-rails. Not sure exactly how this will affect coffee-rails and sass-rails but everything appears to be working correctly. Will update this post if I discover anything further.
+    </p>
+  </div>
+
+  <div class="center hero-unit post">
+    <div class="pull-right">Oct 26, 2013</div>
     <h4>bundle update and install</h4>
     <p><code>$bundle install</code> will install gems specified in the gemfile not yet installed. <code>$bundle update</code> will install gems specified in the gemfile not yet installed, and also update existing gems to their newest tiny version. ie. 1.2.1 to 1.2.5. Generally <code>$bundle install</code> is the only one necessary to run when updates are made to the gemfile. The reason being that by running <code>$bundle update</code> without specifying the specific gem to update it will update all gems which may lead to unexpected behaviour and/or breakage.
     </p>
