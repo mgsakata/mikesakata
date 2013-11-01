@@ -10,6 +10,25 @@
   <h1>Mike Sakata</h1>
 
   <div class="center hero-unit post">
+    <div class="pull-right">Oct 31, 2013</div>
+    <h4>Heroku and New Relic issues</h4>
+    <p>Had a problem getting New Relic to monitor 2 apps I had in separate Heroku instances. Basically I could get the monitoring data from one app, but the other would not be detected. This was due to initially setting up New Relic for the one app using the following link:
+    <a href="https://docs.newrelic.com/docs/ruby/ruby-agent-installation">https://docs.newrelic.com/docs/ruby/ruby-agent-installation</a>
+    </p>
+    <p>
+    That was for the first app and it worked fine. The second app I setup using the New Relic add-on found directly in Heroku. I didn't like how it was a different implementation than the first site so I then changed it so that it was setup the same. However, I could not get it detected by the New Relic site. Eventually I came across a link (<a href="https://devcenter.heroku.com/articles/newrelic#ruby-configuration">https://devcenter.heroku.com/articles/newrelic#ruby-configuration</a>) which mentioned updating the application name with the following: <code>$ heroku config:set NEW_RELIC_APP_NAME="YOUR APP NAME GOES HERE"</code>. What I discovered when I ran <code>$ heroku config</code> was that there was also a setting for <code>NEW_RELIC_LICENSE_KEY</code> and it was different than the license key provided by my New Relic account.
+    </p>
+    <p>
+    Once I ran:
+    <code>$ heroku config:set NEW_RELIC_LICENSE_KEY="My license key from New Relic here"</code>
+    The New Relic site began to detect both of the applications.
+    </p>
+    <p>The last thing I did during the New Relic setup was to go into each of the apps in the New Relic site and then configure Availability monitoring under the Settings tab. This gets New Relic to ping the provided URL for the site every 30 seconds to make sure it is up and running or a warning email is dispatched if it is unavailable for too long a time period. The side benefit of this is that Heroku won't put your app to sleep. The pinging will keep it available without the long wait for it to spin up from sleep mode. This of course isn't an issue for busy sites, but for my development sites which are infrequently visited it is nice to have.
+    </p>
+
+  </div>
+
+  <div class="center hero-unit post">
     <div class="pull-right">Oct 26, 2013</div>
     <h4>railties compatibilty issue deploying to heroku</h4>
     <p>Right on queue had a problem deploying to heroku where there was a dependency issue.</p>
