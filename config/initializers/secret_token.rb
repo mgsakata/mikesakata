@@ -24,4 +24,4 @@ def secure_token
   end
 end
 
-MikeSakata::Application.config.secret_key_base = secure_token
+Mikesakata::Application.config.secret_key_base = secure_token
