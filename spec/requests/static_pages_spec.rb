@@ -1,17 +1,18 @@
 require 'spec_helper'
 
 describe "Static pages" do
+  subject { page }
 
   describe "Home page" do
+    before { visit root_path }
 
-    it "should have the content 'Mike Sakata'" do
-      visit root_path
-      expect(page).to have_content('Mike Sakata')
-    end
+    it { should have_content('Mike Sakata') }
+    it { should have_title('Mike Sakata') }
+  end
 
-    it "should have the title 'Mike Sakata'" do
-      visit root_path
-      expect(page).to have_title("Mike Sakata")
-    end
+  describe "About page" do
+    before { visit about_path }
+
+    it { should have_content('About Me') }
   end
 end

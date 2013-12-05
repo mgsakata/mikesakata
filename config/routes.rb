@@ -3,6 +3,7 @@ Mikesakata::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   root to: 'static_pages#home'
+  match '/about', to: 'static_pages#about', via: 'get'
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

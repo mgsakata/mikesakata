@@ -1,37 +1,28 @@
 
-<style>
-  .post{
-    font-size: 16px;
-    padding: 10px 20px 10px 20px;
-  }
-</style>
 
-<div class="container-fluid">
-  <h1>Mike Sakata</h1>
+<div class="hero-unit post">
+  <div class="pull-right">Oct 31, 2013</div>
+  <h4>Heroku and New Relic issues</h4>
+  <p>Had a problem getting New Relic to monitor 2 apps I had in separate Heroku instances. Basically I could get the monitoring data from one app, but the other would not be detected. This was due to initially setting up New Relic for the one app using the following link:
+  <a href="https://docs.newrelic.com/docs/ruby/ruby-agent-installation">https://docs.newrelic.com/docs/ruby/ruby-agent-installation</a>
+  </p>
+  <p>
+  That was for the first app and it worked fine. The second app I setup using the New Relic add-on found directly in Heroku. I didn't like how it was a different implementation than the first site so I then changed it so that it was setup the same. However, I could not get it detected by the New Relic site. Eventually I came across a link (<a href="https://devcenter.heroku.com/articles/newrelic#ruby-configuration">https://devcenter.heroku.com/articles/newrelic#ruby-configuration</a>) which mentioned updating the application name with the following: <code>$ heroku config:set NEW_RELIC_APP_NAME="YOUR APP NAME GOES HERE"</code>. What I discovered when I ran <code>$ heroku config</code> was that there was also a setting for <code>NEW_RELIC_LICENSE_KEY</code> and it was different than the license key provided by my New Relic account.
+  </p>
+  <p>
+  Once I ran:
+  <code>$ heroku config:set NEW_RELIC_LICENSE_KEY="My license key from New Relic here"</code>
+  The New Relic site began to detect both of the applications.
+  </p>
+  <p>The last thing I did during the New Relic setup was to go into each of the apps in the New Relic site and then configure Availability monitoring under the Settings tab. This gets New Relic to ping the provided URL for the site every 30 seconds to make sure it is up and running or a warning email is dispatched if it is unavailable for too long a time period. The side benefit of this is that Heroku won't put your app to sleep. The pinging will keep it available without the long wait for it to spin up from sleep mode. This of course isn't an issue for busy sites, but for my development sites which are infrequently visited it is nice to have.
+  </p>
 
-  <div class="center hero-unit post">
-    <div class="pull-right">Oct 31, 2013</div>
-    <h4>Heroku and New Relic issues</h4>
-    <p>Had a problem getting New Relic to monitor 2 apps I had in separate Heroku instances. Basically I could get the monitoring data from one app, but the other would not be detected. This was due to initially setting up New Relic for the one app using the following link:
-    <a href="https://docs.newrelic.com/docs/ruby/ruby-agent-installation">https://docs.newrelic.com/docs/ruby/ruby-agent-installation</a>
-    </p>
-    <p>
-    That was for the first app and it worked fine. The second app I setup using the New Relic add-on found directly in Heroku. I didn't like how it was a different implementation than the first site so I then changed it so that it was setup the same. However, I could not get it detected by the New Relic site. Eventually I came across a link (<a href="https://devcenter.heroku.com/articles/newrelic#ruby-configuration">https://devcenter.heroku.com/articles/newrelic#ruby-configuration</a>) which mentioned updating the application name with the following: <code>$ heroku config:set NEW_RELIC_APP_NAME="YOUR APP NAME GOES HERE"</code>. What I discovered when I ran <code>$ heroku config</code> was that there was also a setting for <code>NEW_RELIC_LICENSE_KEY</code> and it was different than the license key provided by my New Relic account.
-    </p>
-    <p>
-    Once I ran:
-    <code>$ heroku config:set NEW_RELIC_LICENSE_KEY="My license key from New Relic here"</code>
-    The New Relic site began to detect both of the applications.
-    </p>
-    <p>The last thing I did during the New Relic setup was to go into each of the apps in the New Relic site and then configure Availability monitoring under the Settings tab. This gets New Relic to ping the provided URL for the site every 30 seconds to make sure it is up and running or a warning email is dispatched if it is unavailable for too long a time period. The side benefit of this is that Heroku won't put your app to sleep. The pinging will keep it available without the long wait for it to spin up from sleep mode. This of course isn't an issue for busy sites, but for my development sites which are infrequently visited it is nice to have.
-    </p>
+</div>
 
-  </div>
-
-  <div class="center hero-unit post">
-    <div class="pull-right">Oct 26, 2013</div>
-    <h4>railties compatibilty issue deploying to heroku</h4>
-    <p>Right on queue had a problem deploying to heroku where there was a dependency issue.</p>
+<div class="hero-unit post">
+  <div class="pull-right">Oct 26, 2013</div>
+  <h4>railties compatibilty issue deploying to heroku</h4>
+  <p>Right on queue had a problem deploying to heroku where there was a dependency issue.</p>
 <pre><code>Bundler could not find compatible version for gem "railties":
 In Gemfile:
 rails (= 4.0.0) ruby depends on
@@ -41,121 +32,118 @@ coffee-rails (= 4.0.0) ruby depends on
 railties (4.0.1.rc1)
 
 Failed to install gems via Bundler</code></pre>
-    <p>
-      Followed the advice in the follow stackoverflow link:<br><a href="http://stackoverflow.com/questions/19437114/bundler-gem-compatibility-issues-when-deploying-to-heroku">http://stackoverflow.com/questions/19437114/bundler-gem-compatibility-issues-when-deploying-to-heroku</a><br>
-      This then lead to sass-rails causing the same conflict. Also moved it above <code>gem 'rails', '4.0.0'</code> in the gemfile and then <code>$bundle update</code> worked properly on my local machine and deploying to heroku.
-    </p>
-    <p>
-      Found some more information related to the ordering of the gems within the gemfile at the following stackoverflow link:<Br><a href="http://stackoverflow.com/questions/16724566/does-the-order-of-gems-in-your-gemfile-make-a-difference">http://stackoverflow.com/questions/16724566/does-the-order-of-gems-in-your-gemfile-make-a-difference</a><br>
-      It appears that by placing the code in the following order:
-    </p>
+  <p>
+    Followed the advice in the follow stackoverflow link:<br><a href="http://stackoverflow.com/questions/19437114/bundler-gem-compatibility-issues-when-deploying-to-heroku">http://stackoverflow.com/questions/19437114/bundler-gem-compatibility-issues-when-deploying-to-heroku</a><br>
+    This then lead to sass-rails causing the same conflict. Also moved it above <code>gem 'rails', '4.0.0'</code> in the gemfile and then <code>$bundle update</code> worked properly on my local machine and deploying to heroku.
+  </p>
+  <p>
+    Found some more information related to the ordering of the gems within the gemfile at the following stackoverflow link:<Br><a href="http://stackoverflow.com/questions/16724566/does-the-order-of-gems-in-your-gemfile-make-a-difference">http://stackoverflow.com/questions/16724566/does-the-order-of-gems-in-your-gemfile-make-a-difference</a><br>
+    It appears that by placing the code in the following order:
+  </p>
 <pre><code class="ruby">gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '4.0.0'
 gem 'rails', '4.0.0'</code></pre>
-    <p>
-      Allows the <code>gem rails</code> dependecy on railties to take precedence and as such railties 4.0.0 is installed as opposed to 4.0.1.rc1 specified by coffee-rails and sass-rails. Not sure exactly how this will affect coffee-rails and sass-rails but everything appears to be working correctly. Will update this post if I discover anything further.
-    </p>
-  </div>
+  <p>
+    Allows the <code>gem rails</code> dependecy on railties to take precedence and as such railties 4.0.0 is installed as opposed to 4.0.1.rc1 specified by coffee-rails and sass-rails. Not sure exactly how this will affect coffee-rails and sass-rails but everything appears to be working correctly. Will update this post if I discover anything further.
+  </p>
+</div>
 
-  <div class="center hero-unit post">
-    <div class="pull-right">Oct 26, 2013</div>
-    <h4>bundle update and install</h4>
-    <p><code>$bundle install</code> will install gems specified in the gemfile not yet installed. <code>$bundle update</code> will install gems specified in the gemfile not yet installed, and also update existing gems to their newest tiny version. ie. 1.2.1 to 1.2.5. Generally <code>$bundle install</code> is the only one necessary to run when updates are made to the gemfile. The reason being that by running <code>$bundle update</code> without specifying the specific gem to update it will update all gems which may lead to unexpected behaviour and/or breakage.
-    </p>
-  </div>
+<div class="hero-unit post">
+  <div class="pull-right">Oct 26, 2013</div>
+  <h4>bundle update and install</h4>
+  <p><code>$bundle install</code> will install gems specified in the gemfile not yet installed. <code>$bundle update</code> will install gems specified in the gemfile not yet installed, and also update existing gems to their newest tiny version. ie. 1.2.1 to 1.2.5. Generally <code>$bundle install</code> is the only one necessary to run when updates are made to the gemfile. The reason being that by running <code>$bundle update</code> without specifying the specific gem to update it will update all gems which may lead to unexpected behaviour and/or breakage.
+  </p>
+</div>
 
-  <div class="center hero-unit post">
-    <div class="pull-right">Oct 26, 2013</div>
-    <h4>uglifier gem</h4>
-    <p>It handles file compression for the asset pipeline. Specifically in the <code>\config\environments\production.rb</code> file there is the following bit of code which tells Rails to use it as the js minifier/compressor.<p>
+<div class="hero-unit post">
+  <div class="pull-right">Oct 26, 2013</div>
+  <h4>uglifier gem</h4>
+  <p>It handles file compression for the asset pipeline. Specifically in the <code>\config\environments\production.rb</code> file there is the following bit of code which tells Rails to use it as the js minifier/compressor.<p>
 <pre><code class="ruby">config.assets.js_compressor = :uglifier
 </code></pre>
-    <p>It appears to not be included in the development.rb file by default since it would slow down development time and make debugging js more difficult.</p>
-    <p>
-      Further details can be found at the following link:<br>
-      <a href="https://github.com/lautis/uglifier" target="_blank">https://github.com/lautis/uglifier</a>
-    </p>
-  </div>
+  <p>It appears to not be included in the development.rb file by default since it would slow down development time and make debugging js more difficult.</p>
+  <p>
+    Further details can be found at the following link:<br>
+    <a href="https://github.com/lautis/uglifier" target="_blank">https://github.com/lautis/uglifier</a>
+  </p>
+</div>
 
-  <div class="center hero-unit post">
-    <div class="pull-right">Oct 11, 2013</div>
-    <h4>Code Syntax Highlighting</h4>
-    <p>Very quickly added some code syntax highlighting to the website using the highlight.js library which can be found at the following github repository:</p>
-    <p><a href="https://github.com/isagalaev/highlight.js" target="_blank">https://github.com/isagalaev/highlight.js</a></p>
-    <p>and the home website where a custome package can be downloaded:</p>
-    <p><a href="http://softwaremaniacs.org/soft/highlight/en/download/" target="_blank">http://softwaremaniacs.org/soft/highlight/en/download/</a></p>
-    <p>After downloading the package copied the js file into the <code>app/assets/javascript</code> directory and the css file I chose into the <code>app/assets/stylesheets</code> directory. The asset pipeline for Rails automatically minifies and includes the js and css files. Lastly, until I find a proper place to put the javascript to initialize the syntax highlighting I added the following script to the end of this static html page.</p>
+<div class="hero-unit post">
+  <div class="pull-right">Oct 11, 2013</div>
+  <h4>Code Syntax Highlighting</h4>
+  <p>Very quickly added some code syntax highlighting to the website using the highlight.js library which can be found at the following github repository:</p>
+  <p><a href="https://github.com/isagalaev/highlight.js" target="_blank">https://github.com/isagalaev/highlight.js</a></p>
+  <p>and the home website where a custome package can be downloaded:</p>
+  <p><a href="http://softwaremaniacs.org/soft/highlight/en/download/" target="_blank">http://softwaremaniacs.org/soft/highlight/en/download/</a></p>
+  <p>After downloading the package copied the js file into the <code>app/assets/javascript</code> directory and the css file I chose into the <code>app/assets/stylesheets</code> directory. The asset pipeline for Rails automatically minifies and includes the js and css files. Lastly, until I find a proper place to put the javascript to initialize the syntax highlighting I added the following script to the end of this static html page.</p>
 <pre><code class="js">&lt;script&gt;
-  $( document ).ready(function() {
-    // process the pre code tags
-    hljs.initHighlightingOnLoad();
-  });
+$( document ).ready(function() {
+  // process the pre code tags
+  hljs.initHighlightingOnLoad();
+});
 &lt;/script&gt;
 </code></pre>
-    <p>Now all I need to do is place my code inside of html tags like so:</p>
+  <p>Now all I need to do is place my code inside of html tags like so:</p>
 <pre><code class="html">&lt;pre&gt;&lt;code class="js"&gt;var test = 'blah';&lt;/code&gt;&lt;/pre&gt;
 </code></pre>
-  <p>To get the following syntax highlighted output:</p>
+<p>To get the following syntax highlighted output:</p>
 <pre><code class="js">var test = 'blah';</code></pre>
 
-  </div>
+</div>
 
-  <div class="center hero-unit post">
-    <div class="pull-right">Oct 5, 2013</div>
-    <h4>rails new</h4>
-    <p>Starting a new rails app involves the following:</p>
+<div class="hero-unit post">
+  <div class="pull-right">Oct 5, 2013</div>
+  <h4>rails new</h4>
+  <p>Starting a new rails app involves the following:</p>
 <pre><code class="no-highlight">rails new &lt;application name&gt;</code></pre>
-    <p>This creates a skeleton application in the directory matching the application name. At the end of the installation <code>bundle install</code> is run automatically. This installs ruby gems for the application to use. Those gems are specified in the <code>gemfile</code> which is located in the root of the new applications directory.</p>
-  </div>
+  <p>This creates a skeleton application in the directory matching the application name. At the end of the installation <code>bundle install</code> is run automatically. This installs ruby gems for the application to use. Those gems are specified in the <code>gemfile</code> which is located in the root of the new applications directory.</p>
+</div>
 
-  <div class="center hero-unit post">
-    <div class="pull-right">Sept 30, 2013</div>
-    <h4>RubyTest for Sublime Text 2</h4>
-    <p>The configuration for Sublime Text 2 recommended by the Rails Tutorial:</p>
-    <p><a href="https://github.com/mhartl/rails_tutorial_sublime_text">https://github.com/mhartl/rails_tutorial_sublime_text</a></p>
-    <p>Included in the list of items to install is RubyTest, which will be used to execute rspec tests among others. When I first installed the RubyTest and attempted to run a test I received the following message:</p>
+<div class="hero-unit post">
+  <div class="pull-right">Sept 30, 2013</div>
+  <h4>RubyTest for Sublime Text 2</h4>
+  <p>The configuration for Sublime Text 2 recommended by the Rails Tutorial:</p>
+  <p><a href="https://github.com/mhartl/rails_tutorial_sublime_text">https://github.com/mhartl/rails_tutorial_sublime_text</a></p>
+  <p>Included in the list of items to install is RubyTest, which will be used to execute rspec tests among others. When I first installed the RubyTest and attempted to run a test I received the following message:</p>
 <pre><code class="no-highlight">[Finished in 0.0s with exit code 1]'rspec' is not recognized as an internal or external command,
 operable program or batch file.
 </code></pre>
-    <p>Not sure of the exact cause and whether it is due to windows or the particular gemfile settings? To remedy the situation needed to update the RubyTest package settings. &nbsp;Preferences -&gt; Package Settings -&gt; RubyTest.</p>
-    <p>First go into the Default settings, select and copy everything. Paste into the User settings</p>
-    <p>Change</p>
-    <p>
+  <p>Not sure of the exact cause and whether it is due to windows or the particular gemfile settings? To remedy the situation needed to update the RubyTest package settings. &nbsp;Preferences -&gt; Package Settings -&gt; RubyTest.</p>
+  <p>First go into the Default settings, select and copy everything. Paste into the User settings</p>
+  <p>Change</p>
+  <p>
 <pre><code class="ruby">"run_rspec_command": "rspec {relative_path}",
 "run_single_rspec_command": "rspec {relative_path} -l{line_number}",
 </code></pre>
-    </p>
-    <p>To</p>
-    <p>
+  </p>
+  <p>To</p>
+  <p>
 <pre><code class="ruby">"run_rspec_command": "bundle exec rspec {relative_path}",
 "run_single_rspec_command": "bundle exec rspec {relative_path} -l{line_number}",
 </code></pre>
-    </p>
-    <p>RubyTest should now run the RSpec tests properly. At least it did so in my case on a Windows 7 machine.</p>
-    <p>.</p>
-  </div>
+  </p>
+  <p>RubyTest should now run the RSpec tests properly. At least it did so in my case on a Windows 7 machine.</p>
+  <p>.</p>
+</div>
 
-  <div class="center hero-unit post">
-    <div class="pull-right">Sept 25, 2013</div>
-    <h4>A server is already running</h4>
-    <p>Learned something new already and haven't even started the tutorial yet. Wanted to check on a site I created going through the old tutorial and received the following error message when I ran the <code>rails s</code> command in windows in the directory:</p>
+<div class="hero-unit post">
+  <div class="pull-right">Sept 25, 2013</div>
+  <h4>A server is already running</h4>
+  <p>Learned something new already and haven't even started the tutorial yet. Wanted to check on a site I created going through the old tutorial and received the following error message when I ran the <code>rails s</code> command in windows in the directory:</p>
 <pre><code class="no-highlight">A server is already running. Check C:/sites/mikesakata/tmp/pids/server.pid</code></pre>
-    <p>After a quick google for a solution the following link was found:</p>
-    <p><a href="http://stackoverflow.com/questions/15127412/ror-a-server-is-already-running-check-tmp-pids-server-pid-exiting" target="_blank">http://stackoverflow.com/questions/15127412/ror-a-server-is-already-running-check-tmp-pids-server-pid-exiting</a></p>
-    <p>It simply states to delete the file in question and then the server is able to start and run.  Easy solution. Works now.</p>
-    <p>Also, server.pid is just a file that stores the process id (PID) of the server. If the computer crashes with the server running it may not be updated properly and rails thinks the server is still running.</p>
-  </div>
+  <p>After a quick google for a solution the following link was found:</p>
+  <p><a href="http://stackoverflow.com/questions/15127412/ror-a-server-is-already-running-check-tmp-pids-server-pid-exiting" target="_blank">http://stackoverflow.com/questions/15127412/ror-a-server-is-already-running-check-tmp-pids-server-pid-exiting</a></p>
+  <p>It simply states to delete the file in question and then the server is able to start and run.  Easy solution. Works now.</p>
+  <p>Also, server.pid is just a file that stores the process id (PID) of the server. If the computer crashes with the server running it may not be updated properly and rails thinks the server is still running.</p>
+</div>
 
-  <div class="center hero-unit post">
-    <div class="pull-right">Sept 25, 2013</div>
-    <h4>Ruby on Rails Tutorial Embarkation</h4>
-    <p>Reading and doing the exercises for a Ruby on Rails 4 tutorial.</p>
-    <p><a href="http://ruby.railstutorial.org/ruby-on-rails-tutorial-book" target="_blank">http://ruby.railstutorial.org/ruby-on-rails-tutorial-book</a></p>
-    <p>It is an excellent tutorial and I've actually completed it a couple times in the past for previous versions of Rails, but this time I'd like to document what I am learning to try and better absorb the details. If possible linking the concepts and information back to my workplace web development language ColdFusion and other existing knowledge to form stronger connections.</p>
-    <p>Additionally the entries I make here can then be extracted and posted on my own website whenever it is completed. A process which I would also like to document if possible.</p>
-  </div>
-
-
+<div class="hero-unit post">
+  <div class="pull-right">Sept 25, 2013</div>
+  <h4>Ruby on Rails Tutorial Embarkation</h4>
+  <p>Reading and doing the exercises for a Ruby on Rails 4 tutorial.</p>
+  <p><a href="http://ruby.railstutorial.org/ruby-on-rails-tutorial-book" target="_blank">http://ruby.railstutorial.org/ruby-on-rails-tutorial-book</a></p>
+  <p>It is an excellent tutorial and I've actually completed it a couple times in the past for previous versions of Rails, but this time I'd like to document what I am learning to try and better absorb the details. If possible linking the concepts and information back to my workplace web development language ColdFusion and other existing knowledge to form stronger connections.</p>
+  <p>Additionally the entries I make here can then be extracted and posted on my own website whenever it is completed. A process which I would also like to document if possible.</p>
 </div>
 
 <script>
