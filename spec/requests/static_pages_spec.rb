@@ -6,13 +6,13 @@ describe "Static pages" do
   describe "Home page" do
     before { visit root_path }
 
-    it { should have_content('Mike Sakata') }
+    it { should have_css('a', text: 'Mike Sakata') }
     it { should have_title('Mike Sakata') }
   end
 
   describe "About page" do
     before { visit about_path }
 
-    it { should have_content('About Me') }
+    it { should have_css('h1', text: 'About Me') }
   end
 end
