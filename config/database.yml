@@ -2,8 +2,8 @@
 development:
   adapter: postgresql
   database: mikesakata
-  username: railsdev # replace this with your own user name
-  password: test # replace this with your own password
+  username: railsdev
+  password: test
   host: localhost
   encoding: UTF8
   pool: 5
@@ -15,8 +15,8 @@ development:
 test:
   adapter: postgresql
   database: test_mikesakata
-  username: railsdev # replace this with your own user name
-  password: test # replace this with your own password
+  username: railsdev
+  password: test
   host: localhost
   encoding: UTF8
   pool: 5

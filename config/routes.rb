@@ -3,10 +3,12 @@ Mikesakata::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   resources :users
-
-  root to: 'static_pages#home'
-  match '/signup',  to: 'users#new',        via: 'get'
-  match '/about', to: 'static_pages#about', via: 'get'
+  resources :sessions, only: [:new, :create, :destroy]
+  root  'static_pages#home'
+  match '/signup',  to: 'users#new',            via: 'get'
+  match '/signin',  to: 'sessions#new',         via: 'get'
+  match '/signout', to: 'sessions#destroy',     via: 'delete'
+  match '/about',   to: 'static_pages#about',   via: 'get'
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
