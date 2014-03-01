@@ -4,7 +4,7 @@ Mikesakata::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :posts, only: [:create, :destroy]
+  resources :posts
   root  'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
