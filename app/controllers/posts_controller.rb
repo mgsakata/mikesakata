@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   def index
     @user = current_user
-    @posts = Posts.all.paginate(page: params[:page])
+    @posts = Post.paginate(page: params[:page])
   end
 
   def show

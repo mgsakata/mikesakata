@@ -2,7 +2,9 @@
 <%= form_for(@post) do |f| %>
   <%= render partial: 'shared/error_messages', object: f.object, as: 'errorObj' %>
   <div class="field">
-    <%= f.text_area :content, placeholder: "Compose new post..." %>
+    <%= f.text_area :content, class: "tinymce", rows: 15, cols: 150 %>
   </div>
   <%= f.submit "Post", class: "btn btn-large btn-primary" %>
 <% end %>
+
+<%= tinymce %>

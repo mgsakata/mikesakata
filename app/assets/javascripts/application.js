@@ -16,4 +16,5 @@
 //= require turbolinks
 //= require 'highlight.pack'
 //= require analytics
+//= require tinymce-jquery
 //= require_tree .
