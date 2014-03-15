@@ -11,7 +11,9 @@ FactoryGirl.define do
   end
 
   factory :post do
+    title "Lorem ipsum title"
     content "Lorem ipsum"
+    tags "test"
     user
   end
 end

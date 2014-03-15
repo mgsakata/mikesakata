@@ -1,6 +1,8 @@
 <li>
+  <span class="post-title"><%= post.title %></span>
   <span class="content"><%= raw post.content %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(post.created_at) %> ago.
   </span>
+  <span class="tags">Tags: <%= post.tags %></span>
 </li>

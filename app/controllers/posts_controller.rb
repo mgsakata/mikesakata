@@ -17,6 +17,11 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
+  def edit
+    @user = current_user
+    @post = Post.find(params[:id])
+  end
+
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
@@ -27,12 +32,25 @@ class PostsController < ApplicationController
     end
   end
 
+  def update
+    @post = Post.find(params[:id])
+    if @post.update_attributes(post_params)
+      flash[:success] = "Post updated"
+      redirect_to @post
+    else
+      render 'edit'
+    end
+  end
+
   def destroy
+    Post.find(params[:id]).destroy
+    flash[:success] = "Post deleted."
+    redirect_to posts_url
   end
 
   private
 
     def post_params
-      params.require(:post).permit(:content)
+      params.require(:post).permit(:content,:title,:tags)
     end
 end

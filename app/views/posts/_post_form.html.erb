@@ -1,10 +1,19 @@
 
 <%= form_for(@post) do |f| %>
+
   <%= render partial: 'shared/error_messages', object: f.object, as: 'errorObj' %>
-  <div class="field">
-    <%= f.text_area :content, class: "tinymce", rows: 15, cols: 150 %>
-  </div>
-  <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :tags %>
+  <%= f.text_field :tags %>
+
+  <%= f.label :content %>
+  <%= f.text_area :content, class: "tinymce", rows: 15, cols: 150 %>
+
+  <%= f.submit "Post", class: "btn btn-large btn-primary btn-post" %>
+
 <% end %>
 
 <%= tinymce %>
