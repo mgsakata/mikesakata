@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.1.0'
 #ruby-gemset=railstutorial_rails_4_0
 
-gem 'sass-rails', '4.0.1'
+gem 'sass-rails', '~>4.0.2'
 gem 'coffee-rails', '4.0.1'
 gem 'rails', '4.0.1'
 gem 'pg', '0.15.1'
