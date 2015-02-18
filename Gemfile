@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1'
+ruby '2.1.0'
 #ruby-gemset=railstutorial_rails_4_0
 
 gem 'sass-rails', '4.0.1'
